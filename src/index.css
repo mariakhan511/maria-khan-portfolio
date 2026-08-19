@@ -1,1 +1,113 @@
 @import "tailwindcss";
+.maria-name {
+  display: inline-block;
+  position: relative;
+  color: var(--ink);
+  cursor: pointer;
+  animation: mariaEntrance 1.5s ease-out;
+  transition: all 0.4s ease;
+}
+
+.maria-name:hover {
+  color: var(--brass) !important;
+  transform: translateY(-5px) scale(1.04);
+  text-shadow: 0 0 20px rgba(190, 145, 55, 0.45);
+}
+
+.maria-name::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -8px;
+  width: 100%;
+  height: 3px;
+  border-radius: 10px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #c49a4a,
+    #f3d58a,
+    #c49a4a,
+    transparent
+  );
+  transform: scaleX(0);
+  transition: transform 0.5s ease;
+}
+
+.maria-name:hover::after {
+  transform: scaleX(1);
+}
+
+@keyframes mariaEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(35px);
+    letter-spacing: 8px;
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    letter-spacing: normal;
+  }
+}
+.maria-slide {
+  display: inline-block;
+  position: relative;
+  animation: mariaSlideIn 1.2s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Slide from left + fade */
+@keyframes mariaSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateX(-100px);
+    filter: blur(8px);
+  }
+
+  60% {
+    opacity: 1;
+    filter: blur(0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+    filter: blur(0);
+  }
+}
+
+/* Elegant golden underline */
+.maria-slide::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -10px;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #c49a4a,
+    #f5d98b,
+    #c49a4a,
+    transparent
+  );
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: mariaLine 0.8s ease-out 1s forwards;
+}
+
+@keyframes mariaLine {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Hover */
+.maria-slide:hover {
+  color: #c49a4a !important;
+  transform: translateY(-4px);
+  text-shadow: 0 0 20px rgba(196, 154, 74, 0.35);
+  transition: all 0.4s ease;
+}

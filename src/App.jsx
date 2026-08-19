@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef, useCallback, createContext, useContext } from "react";
-import { Github, Linkedin, Mail, Sun, Moon, Menu, X, ExternalLink, ArrowRight, Loader2, CheckCircle2, AlertTriangle, Inbox, Stamp } from "lucide-react";
-/* ------------------------------------------------------------------ */
+import { Github, Linkedin, Mail, Sun, Moon, Menu, X, ExternalLink, ArrowRight, Loader2, CheckCircle2, AlertTriangle, Inbox, Star, FileText } from "lucide-react";
 /*  DATA — edit here to update content                                 */
 /* ------------------------------------------------------------------ */
 
@@ -350,15 +349,47 @@ function Hero() {
       <div className="grid md:grid-cols-[1.15fr_0.85fr] gap-14 items-center">
         <div>
           <Reveal>
-            <div className="lib-mono text-xs tracking-[0.3em] uppercase mb-6 flex items-center gap-3" style={{ color: "var(--ink-3)" }}>
-              <Stamp size={14} style={{ color: "var(--brass)" }} />
-              Catalog No. FE — 2026
+            <div className="relative w-24 h-24 mb-6">
+              <div
+                className="absolute -inset-1.5 rounded-full opacity-70"
+                style={{
+                  background: "conic-gradient(from 0deg, var(--brass), transparent, var(--brass))",
+                  animation: "mk-spin 6s linear infinite",
+                }}
+                aria-hidden="true"
+              />
+             <div className="relative w-36 h-36 mb-6 -translate-y-8">
+  {/* Golden animated ring */}
+  <div
+    className="absolute -inset-2 rounded-full opacity-70"
+    style={{
+      background:
+        "conic-gradient(from 0deg, var(--brass), transparent, var(--brass))",
+      animation: "mk-spin 6s linear infinite",
+    }}
+  />
+
+  {/* Profile image */}
+  <img
+    src="/profile (1).jpg"
+    alt="Maria Khan"
+    className="relative w-36 h-36 rounded-full object-cover border-2"
+    style={{
+      borderColor: "var(--bg)",
+      animation: "mk-float 4s ease-in-out infinite",
+    }}
+  />
+</div>
+
             </div>
           </Reveal>
           <Reveal delay={80}>
-            <h1 className="lib-serif leading-[1.03] text-5xl md:text-7xl mb-6" style={{ color: "var(--ink-1)" }}>
-              Maria Khan
-            </h1>
+          <h1 className="lib-serif leading-[1.03] text-5xl md:text-7xl mb-6 maria-slide">
+  Maria Khan
+</h1>
+
+
+
           </Reveal>
           <Reveal delay={140}>
             <p className="lib-mono text-sm tracking-[0.15em] uppercase mb-8" style={{ color: "var(--brass)" }}>
@@ -403,6 +434,7 @@ function Hero() {
   );
 }
 
+
 function CatalogCardIllustration() {
   return (
     <div className="relative">
@@ -413,7 +445,7 @@ function CatalogCardIllustration() {
       />
       <CardChrome className="relative p-7">
         <div className="flex justify-between items-start mb-6">
-          <span className="lib-mono text-[10px] tracking-[0.2em]" style={{ color: "var(--ink-3)" }}>FRONT-END / 001.3</span>
+          <span className="lib-mono text-[10px] tracking-[0.2em]" style={{ color: "var(--ink-3)" }}>Frontend Developer</span>
           <span className="lib-mono text-[10px] px-2 py-0.5 rounded-sm border" style={{ borderColor: "var(--brass)", color: "var(--brass)" }}>
             AVAILABLE
           </span>
@@ -550,36 +582,53 @@ function Skills() {
 function ProjectCard({ p, i }) {
   return (
     <Reveal delay={i * 90}>
-      <CardChrome className="p-6 h-full flex flex-col group hover:-translate-y-1 transition-transform duration-300">
-        <div className="flex items-start justify-between mb-4">
-          <span className="lib-mono text-[10px] tracking-[0.15em]" style={{ color: "var(--ink-3)" }}>{p.id}</span>
-          <span className="lib-mono text-[10px] px-2 py-0.5 rounded-sm border" style={{ borderColor: "var(--line)", color: "var(--ink-3)" }}>
+      <CardChrome className="overflow-hidden h-full flex flex-col group hover:-translate-y-1 transition-transform duration-300">
+        <div className="relative overflow-hidden">
+          <img
+            src={p.image}
+            alt={p.title}
+            className="w-full h-44 object-cover transition-transform duration-500 group-hover:scale-105"
+            loading="lazy"
+          />
+          <div
+            className="absolute inset-0"
+            style={{ background: "linear-gradient(to top, var(--card) 0%, transparent 55%)" }}
+            aria-hidden="true"
+          />
+          <span
+            className="absolute top-3 right-3 lib-mono text-[10px] px-2 py-0.5 rounded-sm border backdrop-blur-sm"
+            style={{ borderColor: "var(--line)", color: "var(--ink-1)", background: "var(--bg-translucent)" }}
+          >
             CARD {String(i + 1).padStart(2, "0")}
           </span>
         </div>
-        <h3 className="lib-serif text-xl mb-2" style={{ color: "var(--ink-1)" }}>{p.title}</h3>
-        <p className="text-sm leading-relaxed mb-5 flex-1" style={{ color: "var(--ink-2)" }}>{p.desc}</p>
-        <div className="flex flex-wrap gap-1.5 mb-6">
-          {p.tech.map((t) => (
-            <span key={t} className="lib-mono text-[10px] px-2 py-1 rounded-sm" style={{ background: "var(--line)", color: "var(--ink-3)" }}>
-              {t}
-            </span>
-          ))}
-        </div>
-        <div className="flex items-center gap-3 pt-4 border-t" style={{ borderColor: "var(--line)" }}>
-          {p.demoUrl ? (
-            <a href={p.demoUrl} target="_blank" rel="noreferrer" className="lib-mono text-xs flex items-center gap-1.5 transition-colors duration-200" style={{ color: "var(--brass)" }}>
-              Live Demo <ExternalLink size={12} />
+
+        <div className="p-6 flex flex-col flex-1">
+          <span className="lib-mono text-[10px] tracking-[0.15em] mb-2" style={{ color: "var(--ink-3)" }}>{p.id}</span>
+          <h3 className="lib-serif text-xl mb-2" style={{ color: "var(--ink-1)" }}>{p.title}</h3>
+          <p className="text-sm leading-relaxed mb-5 flex-1" style={{ color: "var(--ink-2)" }}>{p.desc}</p>
+          <div className="flex flex-wrap gap-1.5 mb-6">
+            {p.tech.map((t) => (
+              <span key={t} className="lib-mono text-[10px] px-2 py-1 rounded-sm" style={{ background: "var(--line)", color: "var(--ink-3)" }}>
+                {t}
+              </span>
+            ))}
+          </div>
+          <div className="flex items-center gap-3 pt-4 border-t" style={{ borderColor: "var(--line)" }}>
+            {p.demoUrl ? (
+              <a href={p.demoUrl} target="_blank" rel="noreferrer" className="lib-mono text-xs flex items-center gap-1.5 transition-colors duration-200" style={{ color: "var(--brass)" }}>
+                Live Demo <ExternalLink size={12} />
+              </a>
+            ) : (
+              <span className="lib-mono text-xs flex items-center gap-1.5" style={{ color: "var(--ink-3)" }} title="Add a deployed link when it's ready">
+                Demo pending
+              </span>
+            )}
+            <span className="opacity-30">·</span>
+            <a href={p.repoUrl} target="_blank" rel="noreferrer" className="lib-mono text-xs flex items-center gap-1.5 transition-colors duration-200" style={{ color: "var(--ink-2)" }}>
+              <Github size={12} /> GitHub
             </a>
-          ) : (
-            <span className="lib-mono text-xs flex items-center gap-1.5" style={{ color: "var(--ink-3)" }} title="Add a deployed link when it's ready">
-              Demo pending
-            </span>
-          )}
-          <span className="opacity-30">·</span>
-          <a href={p.repoUrl} target="_blank" rel="noreferrer" className="lib-mono text-xs flex items-center gap-1.5 transition-colors duration-200" style={{ color: "var(--ink-2)" }}>
-            <Github size={12} /> GitHub
-          </a>
+          </div>
         </div>
       </CardChrome>
     </Reveal>
@@ -610,7 +659,7 @@ function Activity() {
   const [state, setState] = useState("loading"); // loading | success | fallback | empty
   const [repos, setRepos] = useState([]);
 
-  const load = useCallback(async () => {
+   const load = useCallback(async () => {
     setState("loading");
     try {
       const res = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=6`);
@@ -619,7 +668,19 @@ function Activity() {
       if (!Array.isArray(data) || data.length === 0) {
         setState("empty");
       } else {
-        setRepos(data);
+        const DESCRIPTIONS = {
+          "maria-khan-portfolio": "Personal portfolio website built with React and Tailwind CSS, featuring dark/light mode and live GitHub integration.",
+          "React-TCSS": "Practice project combining React.js with Tailwind CSS for responsive UI components.",
+          "React-figma": "React project translating Figma designs into pixel-accurate, responsive components.",
+          "React-tutorial": "Collection of React.js fundamentals and hands-on exercises for learning hooks and components.",
+          "Bootstrap": "Responsive web pages built with HTML, CSS, and Bootstrap for layout and styling practice.",
+          "My-Portfolio": "Early version of a personal portfolio site built with HTML and CSS.",
+        };
+        const enriched = data.map((r) => ({
+          ...r,
+          description: r.description || DESCRIPTIONS[r.name] || null,
+        }));
+        setRepos(enriched);
         setState("success");
       }
     } catch (e) {
@@ -681,12 +742,33 @@ function Activity() {
                     <span className="text-sm font-medium truncate" style={{ color: "var(--ink-1)" }}>{r.name}</span>
                     <Github size={13} style={{ color: "var(--ink-3)" }} />
                   </div>
-                  <p className="text-xs leading-relaxed mb-4 line-clamp-2" style={{ color: "var(--ink-3)", minHeight: "2.2em" }}>
-                    {r.description || "No description provided."}
-                  </p>
-                  <div className="flex items-center gap-3 lib-mono text-[10px]" style={{ color: "var(--ink-3)" }}>
-                    {r.language && <span>{r.language}</span>}
-                    <span>★ {r.stargazers_count}</span>
+                                    {r.description ? (
+                    <p className="text-xs leading-relaxed mb-4 line-clamp-2" style={{ color: "var(--ink-3)", minHeight: "2.2em" }}>
+                      {r.description}
+                    </p>
+                  ) : (
+                    <p
+                      className="text-xs leading-relaxed mb-4 flex items-center gap-1.5 italic"
+                      style={{ color: "var(--ink-3)", opacity: 0.6, minHeight: "2.2em" }}
+                    >
+                      <FileText size={12} />
+                    
+                    </p>
+                  )}
+                  <div className="flex items-center gap-4 lib-mono text-[10px]" style={{ color: "var(--ink-3)" }}>
+                    {r.language && (
+                      <span className="flex items-center gap-1.5">
+                        <span
+                          className="w-2 h-2 rounded-full inline-block"
+                          style={{ background: "var(--brass)" }}
+                        />
+                        {r.language}
+                      </span>
+                    )}
+                    <span className="flex items-center gap-1">
+                      <Star size={11} />
+                      {r.stargazers_count}
+                    </span>
                   </div>
                 </CardChrome>
               </a>
@@ -756,11 +838,11 @@ function Contact() {
     setErrors(v);
     if (Object.keys(v).length > 0) return;
 
-    setSubmitting(true);
+        setSubmitting(true);
     setSubmitError(false);
     try {
-      const existing = await window.storage.get("contact-submissions").catch(() => null);
-      const list = existing?.value ? JSON.parse(existing.value) : [];
+      const existing = localStorage.getItem("contact-submissions");
+      const list = existing ? JSON.parse(existing) : [];
       const entry = {
         id: `MSG-${Date.now()}`,
         ...fields,
@@ -768,8 +850,7 @@ function Contact() {
         status: "New",
       };
       list.unshift(entry);
-      const result = await window.storage.set("contact-submissions", JSON.stringify(list));
-      if (!result) throw new Error("Storage write failed");
+      localStorage.setItem("contact-submissions", JSON.stringify(list));
 
       // Route the message to the inbox. A static site can't send email
       // silently without a backend/email service, so this opens the
@@ -1033,8 +1114,17 @@ function GlobalStyle() {
         font-family: 'Inter', sans-serif;
         transition: background 0.4s ease, color 0.4s ease;
       }
-      #mk-root .lib-serif { font-family: 'Fraunces', serif; }
+            #mk-root .lib-serif { font-family: 'Fraunces', serif; }
       #mk-root .lib-mono { font-family: 'IBM Plex Mono', monospace; }
+      @keyframes mk-spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+           @keyframes mk-letter-in {
+        from { opacity: 0; transform: translateY(14px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      }
       #mk-root input::placeholder, #mk-root textarea::placeholder { color: var(--ink-3); opacity: 0.7; }
       #mk-root input:focus, #mk-root textarea:focus { border-color: var(--brass) !important; }
       #mk-root ::selection { background: var(--brass); color: var(--bg); }
